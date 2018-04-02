@@ -11,6 +11,6 @@ app.use(expressValidator());
 
 const routes = require('./routes/index');
 
-app.use('/', routes);
+app.use('/gwu', routes);
 
 module.exports = app;

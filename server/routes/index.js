@@ -28,12 +28,12 @@ var upload = multer({
 
 const userController = require('../controllers/userController');
 
-router.get('/profiles',
+router.get('/profile',
   
   userController.getProfile,
 );
 
-router.post('/profiles', upload.any(), 
+router.post('/profile', upload.any(), 
   
   userController.saveProfile,
 );
