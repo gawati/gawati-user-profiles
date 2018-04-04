@@ -6,9 +6,12 @@ exports.getProfile = async(req, res) => {
     if(req.query.userName!=undefined){
         const user = await User.findOne({ userName: req.query.userName });
         if(user){
+          if(user.dpUrl==undefined || user.dpUrl==""){
+            user.dpUrl = process.env.DEFAULT_PROFILE_IMAGE
+          }
           res.json({ "success": "true", "data": user});
         }else{
-          res.json({ "success": "true", "data": {dpUrl:'',nickName:''}});
+          res.json({ "success": "true", "data": {dpUrl:process.env.DEFAULT_PROFILE_IMAGE,nickName:''}});
         } 
     }else{
         res.json({ "success": "true", "data": {dpUrl:'',nickName:''}});
@@ -38,7 +41,7 @@ exports.saveProfile = async(req, res) => {
         if(user) {
           user.dpUrl = req.files[0].location;
           await user.save();
-          res.json({ "success": "true", "data": {}});
+          res.json({ "success": "true", "data": user});
         }else{
           res.json({ "success": "false", "data": {}});
         }
