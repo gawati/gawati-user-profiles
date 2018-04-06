@@ -10,6 +10,7 @@ var path = require('path');
 var serveStatic = require('serve-static')
 
 const winston = require('winston');
+const pathUtils = require('./server/utils/pathUtils');
 
 winston.level = process.env.LOG_LEVEL || 'error' ;
 
@@ -35,7 +36,7 @@ app.use(bodyParser.urlencoded({"extended" : false}));
 
 app.use(expressValidator());
 
-app.use('/gwu/'+process.env.FILESYSTEM_UPLOAD_DIRECTORY, serveStatic(path.join(__dirname, process.env.FILESYSTEM_UPLOAD_DIRECTORY)))
+app.use('/gwu/'+ process.env.FILESYSTEM_UPLOAD_DIRECTORY, serveStatic(pathUtils.uploadPath()))
 
 const routes = require('./server/routes/index');
 

@@ -4,7 +4,7 @@ const fs = require('fs');
 var multer  = require('multer');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
-
+var pathUtils = require('../utils/pathUtils');
 
 // var s3 = new aws.S3({
 //     "accessKeyId": process.env.AWS_ACESSKEY,
@@ -28,7 +28,7 @@ var multerS3 = require('multer-s3');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, process.env.FILESYSTEM_ROOT+process.env.FILESYSTEM_UPLOAD_DIRECTORY)
+    cb(null, pathUtils.uploadPath())
   },
   filename: function (req, file, cb) {
     cb(null, Date.now().toString() + path.extname(file.originalname))
@@ -41,7 +41,6 @@ var upload = multer({ storage: storage })
 const userController = require('../controllers/userController');
 
 router.get('/profile',
-  
   userController.getProfile,
 );
 
