@@ -1,5 +1,5 @@
 {
-  "name": "gawati",
+  "name": "gawati-user-profiles",
   "version": "1.0.0",
   "scripts": {
     "webpack": "webpack",
