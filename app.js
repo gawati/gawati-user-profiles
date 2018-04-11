@@ -16,7 +16,14 @@ winston.level = process.env.LOG_LEVEL || 'error' ;
 
 require('dotenv').config({ path: 'variables.env' });
 
-mongoose.connect(process.env.DATABASE);
+mongoose.connect(process.env.DATABASE)
+  .then( (val) => {
+    console.log(" Connected to MongoDB");
+  })
+  .catch( (err) => {
+    console.log(" Failed to connect to MongoDB; Aborting");
+    process.exit(1);
+  });
 var db = mongoose.connection;
 
 db.on('error', function() {
@@ -42,7 +49,4 @@ const routes = require('./server/routes/index');
 
 app.use('/gwu', routes);
 
-
-const server = app.listen(process.env.PORT, () => {
-  winston.log("info", `Server running on localhost:${server.address().port}`);
-});
+module.exports = app;
